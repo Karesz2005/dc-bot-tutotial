@@ -8,7 +8,7 @@ const randomPuppy = require('random-puppy');
 
 const fs = require("fs");
 const ms = require("ms");
-// const money = require("./money.json");
+const money = require("./money.json");
 const { error } = require("console");
 const { attachCookies } = require("superagent");
 
