@@ -1,3 +1,20 @@
+
+
+const express = require("express");
+const app = express();
+
+app.use(express.static("public"));
+
+app.get("/", (request, response) => {
+    console.log("Ping Recevied")
+    response.send("DISCORD YT NOTIFIER")
+});
+
+const listener = app.listen(procces.env.PORT, () => {
+    console.log("Your app is listening on port" + listener.address().port);
+});
+
+
 const Discord = require("discord.js");
 const tokenfile = require("./tokenfile.json");
 const botconfig = require("./botconfig.json");
@@ -61,6 +78,27 @@ bot.on("message", async message => {
             message.reply("írj szöveget!")
         }
     }
+    
+        const notifier = new YouTubeNotifier({
+        hubCallback: '',
+        secret: 'Something',
+      });
+       
+      notifier.on('notified', data => {
+        console.log('New Video');
+        client.channels.cache.get("SERVER_CHANNEL_ID").send(
+            `**{data.channel.name}** Feltöltött egy új videót! - **{data.video.link}**`
+        )
+        console.log(
+          `${data.channel.name} just uploaded a new video titled: ${data.video.title}`
+        );
+      });
+       
+      notifier.subscribe('CHANNEL_ID');
+      
+      app.use("/yt", notifier.listener());
+
+})
 
 
 })
